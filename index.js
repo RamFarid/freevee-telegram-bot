@@ -7,6 +7,11 @@ const filterAndGroupFormats = require('./utils/filterFromWeb')
 const converSecondsToReadbleString = require('./utils/converSecondsToReadbleString')
 const formatNumber = require('./utils/formatNumber')
 
+bot.telegram.setWebhook('https://freevee-telegram-bot.vercel.app/index')
+
+// Start listening to updates
+bot.startWebhook('/index', null, process.env.PORT || 3000)
+
 bot.start(async (ctx) => {
   try {
     const keyboardMarkup = Markup.keyboard([
