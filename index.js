@@ -7,10 +7,8 @@ const filterAndGroupFormats = require('./utils/filterFromWeb')
 const converSecondsToReadbleString = require('./utils/converSecondsToReadbleString')
 const formatNumber = require('./utils/formatNumber')
 
-bot.telegram.setWebhook('https://freevee-telegram-bot.vercel.app/index')
-
 // Start listening to updates
-bot.startWebhook('/index', null, process.env.PORT || 3000)
+bot.telegram.getWebhookInfo().then((res) => console.log(res))
 
 bot.start(async (ctx) => {
   try {
@@ -130,7 +128,12 @@ bot.on('callback_query', async (ctx) => {
   }
 })
 
-bot.launch()
+bot.launch({
+  webhook: {
+    domain: 'https://freevee-telegram-bot.vercel.app',
+    port: process.env.PORT || 3000,
+  },
+})
 
 process.once('SIGINT', () => bot.stop('SIGINT'))
 process.once('SIGTERM', () => bot.stop('SIGTERM'))
